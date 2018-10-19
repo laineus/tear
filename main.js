@@ -1,6 +1,6 @@
 import clm from 'clmtrackr'
 
-const tracker = new clm.tracker({ stopOnConvergence: true })
+const tracker = new clm.tracker()
 tracker.init()
 
 const imageCanvas = document.getElementById('image')
@@ -17,14 +17,17 @@ img.onload = () => {
   imageCtx.drawImage(img, 0, 0, img.width, img.height)
 
   tracker.start(imageCanvas)
-  const drawLoop = () => {
-    requestAnimationFrame(drawLoop)
-    overlayCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height)
-    if (tracker.getCurrentPosition()) {
+
+  const drawLoop = (count, callback) => {
+    const pos = tracker.getCurrentPosition()
+    if (pos) {
+      overlayCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height)
       tracker.draw(overlayCanvas)
     }
+    count ? requestAnimationFrame(() => drawLoop(count - 1, callback)) : callback(pos)
   }
-  drawLoop()
+  drawLoop(100, ret => {
+    console.log(ret)
+  })
 }
-img.src = 'sample.png'
-
+img.src = 'sample.jpg'
