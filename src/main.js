@@ -11,7 +11,10 @@ dragAndDropSelect(dropArea, fileInput)
 
 fileInput.addEventListener('input', e => {
   e.preventDefault()
-  fileToImage(e.target.files[0]).then(src => tearMole.setImageSrc(src)).catch(console.error)
+  fileToImage(e.target.files[0]).then(src => {
+    tearMole.setImageSrc(src)
+    fileInput.value = null
+  }).catch(console.error)
 })
 
 const radioList = document.querySelectorAll('input[name="key"]')

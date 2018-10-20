@@ -53,8 +53,8 @@ export default class {
     this.context.beginPath()
     this.context.arc(x, y, arcSize, (0 * Math.PI / 180), (360 * Math.PI / 180), false)
     this.context.shadowBlur = arcSize
-    this.context.shadowColor = 'rgba(35, 20, 5, 1)'
-    this.context.fillStyle = 'rgba(35, 20, 5, 0.3)'
+    this.context.shadowColor = 'rgba(50, 20, 5, 1)'
+    this.context.fillStyle = 'rgba(50, 20, 5, 0.3)'
     this.context.fill()
   }
   updateMole () {
