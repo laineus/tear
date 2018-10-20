@@ -1,6 +1,6 @@
 import clm from 'clmtrackr'
 import dragAndDropSelect from './src/dragAndDropSelect'
-import inputToImage from './src/inputToImage'
+import fileToImage from './src/fileToImage'
 import drawMole from './src/drawMole'
 import { HTML } from './src/settings'
 
@@ -13,7 +13,10 @@ const dropArea = document.getElementById(HTML.DROP_AREA_ID)
 const fileInput = document.getElementById(HTML.FILE_INPUT_ID)
 
 dragAndDropSelect(dropArea, fileInput)
-inputToImage(fileInput).then(result => image.src = result).catch(e => alert(e))
+fileInput.addEventListener('input', e => {
+  e.preventDefault()
+  fileToImage(e.target.files[0]).then(result => image.src = result).catch(e => alert(e))
+})
 
 image.onload = () => {
   canvas.setAttribute('width', image.width)
