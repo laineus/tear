@@ -1,11 +1,11 @@
 {
-  "name": "title",
+  "name": "tear-mole",
   "version": "1.0.0",
   "author": "laineus",
   "license": "MIT",
   "scripts": {
     "dev": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack --optimize-minimize"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
