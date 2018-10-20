@@ -8,17 +8,25 @@
   <title>Document</title>
 </head>
 <body>
-  <label id="dropArea" class="dropArea">
-    <input id="fileInput" type="file">
-  </label>
-  <div>
-    <input id="radioLeft" type="radio" name="key" value="LEFT" checked>
-    <label for="radioLeft">Left</label>
-    <input id="radioRight" type="radio" name="key" value="RIGHT">
-    <label for="radioRight">Right</label>
-  </div>
-  <div class="outputContent">
-    <canvas id="canvas" class="outputContent-canvas" width="0" height="0"></canvas>
+  <div class="container">
+    <h1 class="title">Tear mole</h1>
+    <div class="description">Draw a mole under eye</div>
+    <label id="dropArea" class="dropArea">
+      <div class="dropArea-text">ファイルを選択 またはドロップしてください</div>
+      <input id="fileInput" type="file">
+    </label>
+    <div class="molePosition">
+      <label class="molePosition-label" for="radioLeft">
+        <input id="radioLeft" type="radio" name="key" value="LEFT" checked> 左目
+      </label>
+      <label class="molePosition-label" for="radioRight">
+        <input id="radioRight" type="radio" name="key" value="RIGHT"> 右目
+      </label>
+    </div>
+    <div class="outputContent">
+      <canvas id="canvas" class="outputContent-canvas" width="0" height="0"></canvas>
+    </div>
+    <footer>laineus.com</footer>
   </div>
   <script src="bundle.js"></script>
 </body>

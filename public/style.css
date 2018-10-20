@@ -1,9 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+body {
+  font-size: 14px;
+  color: #333;
+  padding: 0 15px;
+}
+.title {
+  font-size: 26px;
+}
+.description {
+  font-size: 13px;
+}
+.container {
+  width: 1000px;
+  margin: auto;
+  padding: 20px 0;
+}
 .dropArea {
-  display: block;
-  width: 800px;
-  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100px;
+  margin: 20px 0;
   border: 3px dashed #AAA;
+}
+.dropArea-text {
+  margin-bottom: 10px;
 }
 .dropArea.dragover {
   background: #DDD;
+}
+.molePosition {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.molePosition-label {
+  width: 120px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.molePosition-label input {
+  margin-right: 5px;
+}
+.outputContent {
+  min-height: 200px;
+  margin: 20px 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EEE;
+}
+footer {
+  margin-top: 30px;
+  text-align: center;
 }
