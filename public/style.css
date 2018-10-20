@@ -1,0 +1,9 @@
+.dropArea {
+  display: block;
+  width: 800px;
+  height: 400px;
+  border: 3px dashed #AAA;
+}
+.dropArea.dragover {
+  background: #DDD;
+}

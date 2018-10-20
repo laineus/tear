@@ -44,4 +44,31 @@ img.onload = () => {
     context.fill()
   })
 }
-img.src = 'sample.jpg'
+
+const dropArea = document.getElementById('dropArea')
+const fileInput = document.getElementById('fileInput')
+
+dropArea.addEventListener('dragover', e => {
+  e.preventDefault()
+  dropArea.classList.add('dragover')
+})
+dropArea.addEventListener('dragleave', e => {
+  e.preventDefault()
+  dropArea.classList.remove('dragover')
+})
+dropArea.addEventListener('drop', e => {
+  e.preventDefault()
+  dropArea.classList.remove('dragover')
+  fileInput.files = e.dataTransfer.files
+})
+fileInput.addEventListener('change', e => {
+  e.preventDefault()
+  const file = e.target.files[0]
+  if (!file.type.match(/^image\/(png|jpeg|gif)$/)) return
+
+  const reader = new FileReader()
+  reader.onload = e => {
+    img.src = e.target.result
+  }
+  reader.readAsDataURL(file)
+})
