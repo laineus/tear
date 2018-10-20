@@ -1,74 +1,30 @@
 import clm from 'clmtrackr'
-
-const POINTS = {
-  LEFT: {
-    EYE: 28,
-    CORNER: 13
-  },
-  RIGHT: {
-    EYE: 23,
-    CORNER: 1
-  }
-}
-const MOLE_SIZE = 0.005 // 1.0 = face width
-const MOLE_POSITION = 0.3 // (eye) 0.0 ... 1.0 (face corner)
+import dragAndDropSelect from './src/dragAndDropSelect'
+import inputToImage from './src/inputToImage'
+import drawMole from './src/drawMole'
+import { HTML } from './src/settings'
 
 const tracker = new clm.tracker()
-tracker.init()
+const image = new Image()
 
-const canvas = document.getElementById('canvas')
+const canvas = document.getElementById(HTML.CANVAS_ID)
 const context = canvas.getContext('2d')
+const dropArea = document.getElementById(HTML.DROP_AREA_ID)
+const fileInput = document.getElementById(HTML.FILE_INPUT_ID)
 
-const img = new Image()
-img.onload = () => {
-  canvas.setAttribute('width', img.width)
-  canvas.setAttribute('height', img.height)
-  context.drawImage(img, 0, 0, img.width, img.height)
+dragAndDropSelect(dropArea, fileInput)
+inputToImage(fileInput).then(result => image.src = result).catch(e => alert(e))
 
+image.onload = () => {
+  canvas.setAttribute('width', image.width)
+  canvas.setAttribute('height', image.height)
+  context.drawImage(image, 0, 0, image.width, image.height)
+
+  tracker.init()
   tracker.start(canvas)
 
   const track = (count, callback) => {
     count ? requestAnimationFrame(() => track(count - 1, callback)) : callback(tracker.getCurrentPosition())
   }
-  track(30, pos => {
-    if (!pos) return
-    const key = 'LEFT'
-    const faceSize = Math.abs(pos[POINTS.LEFT.CORNER][0] - pos[POINTS.RIGHT.CORNER][0])
-    const arcSize = faceSize * MOLE_SIZE
-    const x = pos[POINTS[key].EYE][0] + (pos[POINTS[key].CORNER][0] - pos[POINTS[key].EYE][0]) * MOLE_POSITION
-    const y = pos[POINTS[key].EYE][1] + (pos[POINTS[key].CORNER][1] - pos[POINTS[key].EYE][1]) * MOLE_POSITION
-    context.arc(x, y, arcSize, (0 * Math.PI / 180), (360 * Math.PI / 180), false)
-    context.shadowBlur = arcSize
-    context.shadowColor = 'rgba(35, 20, 5, 1)'
-    context.fillStyle = 'rgba(35, 20, 5, 0.3)'
-    context.fill()
-  })
+  track(30, position => drawMole(context, position, true))
 }
-
-const dropArea = document.getElementById('dropArea')
-const fileInput = document.getElementById('fileInput')
-
-dropArea.addEventListener('dragover', e => {
-  e.preventDefault()
-  dropArea.classList.add('dragover')
-})
-dropArea.addEventListener('dragleave', e => {
-  e.preventDefault()
-  dropArea.classList.remove('dragover')
-})
-dropArea.addEventListener('drop', e => {
-  e.preventDefault()
-  dropArea.classList.remove('dragover')
-  fileInput.files = e.dataTransfer.files
-})
-fileInput.addEventListener('change', e => {
-  e.preventDefault()
-  const file = e.target.files[0]
-  if (!file.type.match(/^image\/(png|jpeg|gif)$/)) return
-
-  const reader = new FileReader()
-  reader.onload = e => {
-    img.src = e.target.result
-  }
-  reader.readAsDataURL(file)
-})
