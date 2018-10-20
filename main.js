@@ -10,6 +10,8 @@ const POINTS = {
     CORNER: 1
   }
 }
+const MOLE_SIZE = 0.005 // 1.0 = face width
+const MOLE_POSITION = 0.3 // (eye) 0.0 ... 1.0 (face corner)
 
 const tracker = new clm.tracker()
 tracker.init()
@@ -37,13 +39,17 @@ img.onload = () => {
     }
     count ? requestAnimationFrame(() => drawLoop(count - 1, callback)) : callback(pos)
   }
-  drawLoop(100, pos => {
+  drawLoop(30, pos => {
     if (!pos) return
-    const key = 'RIGHT'
-    const x = (pos[POINTS[key].EYE][0] + pos[POINTS[key].CORNER][0]) / 2
-    const y = (pos[POINTS[key].EYE][1] + pos[POINTS[key].CORNER][1]) / 2
-    imageCtx.arc(x, y, 2, (0 * Math.PI / 180), (360 * Math.PI / 180), false)
-    imageCtx.fillStyle = 'rgba(15, 10, 0, 0.8)';
+    const key = 'LEFT'
+    const faceSize = Math.abs(pos[POINTS.LEFT.CORNER][0] - pos[POINTS.RIGHT.CORNER][0])
+    const arcSize = faceSize * MOLE_SIZE
+    const x = pos[POINTS[key].EYE][0] + (pos[POINTS[key].CORNER][0] - pos[POINTS[key].EYE][0]) * MOLE_POSITION
+    const y = pos[POINTS[key].EYE][1] + (pos[POINTS[key].CORNER][1] - pos[POINTS[key].EYE][1]) * MOLE_POSITION
+    imageCtx.arc(x, y, arcSize, (0 * Math.PI / 180), (360 * Math.PI / 180), false)
+    imageCtx.shadowBlur = arcSize
+    imageCtx.shadowColor = 'rgba(35, 20, 5, 1)'
+    imageCtx.fillStyle = 'rgba(35, 20, 5, 0.3)'
     imageCtx.fill()
     overlayCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height)
   })
