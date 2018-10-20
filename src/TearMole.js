@@ -9,6 +9,7 @@ export default class {
     this.image.onload = () => {
       this.drawImage()
       this.resetTracker()
+      if (this.onStart) this.onStart()
       this.track(MOLE.TRACK_COUNT)
     }
   }
@@ -31,11 +32,13 @@ export default class {
     this.tracker.start(this.canvas)
   }
   track (count) {
+    if (this.onProgress) this.onProgress(Math.round((MOLE.TRACK_COUNT - count) / MOLE.TRACK_COUNT * 100))
     if (count > 0) {
       requestAnimationFrame(() => this.track(count - 1))
     } else {
       this.tracker.stop()
       this.drawMole()
+      if (this.onEnd) this.onEnd()
     }
   }
   drawMole () {

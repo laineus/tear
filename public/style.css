@@ -2,11 +2,16 @@
   margin: 0;
   padding: 0;
   max-width: 100%;
+  box-sizing: border-box;
 }
 body {
   font-size: 14px;
   color: #333;
   padding: 0 15px;
+  min-width: 300px;
+}
+.hide {
+  display: none;
 }
 .title {
   font-size: 26px;
@@ -55,13 +60,27 @@ body {
   margin-right: 5px;
 }
 .outputContent {
-  min-height: 200px;
-  margin: 20px 0;
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  min-height: 200px;
+  margin: 20px 0;
+  padding: 20px;
   background: #EEE;
+}
+.outputContent-progress {
+  width: 100%;
+  height: 5px;
+  border: 1px solid #AAA;
+}
+.outputContent-progress-bar {
+  height: 3px;
+  background: #AAA;
+}
+.outputContent-download {
+  padding: 3px 10px;
+  margin-top: 15px;
 }
 footer {
   margin-top: 30px;

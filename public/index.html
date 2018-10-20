@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Tear mole - 顔写真に泣きぼくろをつけるサイト</title>
 </head>
 <body>
   <div class="container">
@@ -24,7 +24,11 @@
       </label>
     </div>
     <div class="outputContent">
-      <canvas id="canvas" class="outputContent-canvas" width="0" height="0"></canvas>
+      <div id="progress" class="outputContent-progress hide">
+        <div id="progressBar" class="outputContent-progress-bar" style="width: 100%;"></div>
+      </div>
+      <canvas id="canvas" class="outputContent-canvas hide" width="0" height="0"></canvas>
+      <button id="download" class="outputContent-download hide">Download</button>
     </div>
     <footer>laineus.com</footer>
   </div>
