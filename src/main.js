@@ -27,19 +27,22 @@ radioList.forEach(radio => {
 
 const progress = document.getElementById('progress')
 const progressBar = document.getElementById('progressBar')
+const fail = document.getElementById('fail')
 const download = document.getElementById('download')
 tearMole.onStart = () => {
   progress.classList.remove('hide')
+  fail.classList.add('hide')
   canvas.classList.add('hide')
   download.classList.add('hide')
 }
 tearMole.onProgress = progress => {
   progressBar.style.width = `${progress}%`
 }
-tearMole.onEnd = () => {
+tearMole.onEnd = result => {
   progress.classList.add('hide')
   canvas.classList.remove('hide')
-  download.classList.remove('hide')
+  if (!result) fail.classList.remove('hide')
+  if (result) download.classList.remove('hide')
 }
 
 download.addEventListener('click', e => {

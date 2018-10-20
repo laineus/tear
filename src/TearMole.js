@@ -37,13 +37,13 @@ export default class {
       requestAnimationFrame(() => this.track(count - 1))
     } else {
       this.tracker.stop()
-      this.drawMole()
-      if (this.onEnd) this.onEnd()
+      const result = this.drawMole()
+      if (this.onEnd) this.onEnd(result)
     }
   }
   drawMole () {
     const position = this.tracker.getCurrentPosition()
-    if (!position) return alert('顔の認識に失敗しました。顔がはっきり写った写真を選んでください。')
+    if (!position) return false
     const faceSize = Math.abs(position[TRACK_POINTS.LEFT.CORNER][0] - position[TRACK_POINTS.RIGHT.CORNER][0])
     const arcSize = faceSize * MOLE.SIZE
     const diffX = position[TRACK_POINTS[this.key].CORNER][0] - position[TRACK_POINTS[this.key].EYE][0]
@@ -56,6 +56,7 @@ export default class {
     this.context.shadowColor = 'rgba(50, 20, 5, 1)'
     this.context.fillStyle = 'rgba(50, 20, 5, 0.3)'
     this.context.fill()
+    return true
   }
   updateMole () {
     if (!this.origin) return

@@ -89,6 +89,12 @@ a:hover {
   height: 3px;
   background: #AAA;
 }
+.outputContent-fail {
+  margin-bottom: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #D00;
+}
 .outputContent-download {
   padding: 3px 10px;
   margin-top: 15px;
