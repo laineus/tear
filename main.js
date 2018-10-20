@@ -4,7 +4,6 @@ import fileToImage from './src/fileToImage'
 import drawMole from './src/drawMole'
 import { HTML } from './src/settings'
 
-const tracker = new clm.tracker()
 const image = new Image()
 
 const canvas = document.getElementById(HTML.CANVAS_ID)
@@ -23,11 +22,17 @@ image.onload = () => {
   canvas.setAttribute('height', image.height)
   context.drawImage(image, 0, 0, image.width, image.height)
 
+  const tracker = new clm.tracker()
   tracker.init()
   tracker.start(canvas)
 
-  const track = (count, callback) => {
-    count ? requestAnimationFrame(() => track(count - 1, callback)) : callback(tracker.getCurrentPosition())
+  const track = (count) => {
+    if (count > 0) {
+      requestAnimationFrame(() => track(count - 1))
+    } else {
+      tracker.stop()
+      drawMole(context, tracker.getCurrentPosition(), getKey())
+    }
   }
-  track(30, position => drawMole(context, position, true))
+  track(30)
 }
