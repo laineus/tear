@@ -16,6 +16,7 @@ export const TRACK_POINTS = {
 }
 
 export const MOLE = {
+  TRACK_COUNT: 50,
   SIZE: 0.005, // 1.0 = face width
   POSITION: 0.3 // (eye) 0.0 ... 1.0 (face corner)
 }
