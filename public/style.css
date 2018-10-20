@@ -3,18 +3,29 @@
   padding: 0;
   max-width: 100%;
   box-sizing: border-box;
+  list-style: none;
 }
 body {
-  font-size: 14px;
-  color: #333;
   padding: 0 15px;
   min-width: 300px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 .hide {
   display: none;
 }
 .title {
   font-size: 26px;
+  line-height: 1.3;
+  margin-bottom: 3px;
 }
 .description {
   font-size: 13px;
@@ -81,6 +92,9 @@ body {
 .outputContent-download {
   padding: 3px 10px;
   margin-top: 15px;
+}
+.notification {
+  font-size: 10px;
 }
 footer {
   margin-top: 30px;
