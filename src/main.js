@@ -9,7 +9,7 @@ const dropArea = document.getElementById('dropArea')
 const fileInput = document.getElementById('fileInput')
 dragAndDropSelect(dropArea, fileInput)
 
-fileInput.addEventListener('input', e => {
+fileInput.addEventListener('change', e => {
   e.preventDefault()
   fileToImage(e.target.files[0]).then(src => {
     tearMole.setImageSrc(src)
@@ -19,7 +19,7 @@ fileInput.addEventListener('input', e => {
 
 const radioList = document.querySelectorAll('input[name="key"]')
 radioList.forEach(radio => {
-  radio.addEventListener('input', e => {
+  radio.addEventListener('change', e => {
     tearMole.setKey(e.currentTarget.value)
     tearMole.updateMole()
   })

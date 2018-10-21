@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel watch src/main.js -d public",
+    "server": "parcel -p 8080 src/main.js -d public",
     "build": "parcel build src/main.js -d public"
   },
   "dependencies": {
