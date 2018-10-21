@@ -4,14 +4,13 @@
   "author": "laineus",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --watch",
-    "build": "webpack --optimize-minimize"
+    "dev": "parcel watch src/main.js -d public",
+    "build": "parcel build src/main.js -d public"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "clmtrackr": "^1.1.2",
-    "webpack": "^3.10.0"
+    "parcel-bundler": "^1.10.3"
   }
 }
