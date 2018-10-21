@@ -3,7 +3,7 @@ import dragAndDropSelect from './dragAndDropSelect'
 import fileToImage from './fileToImage'
 
 const canvas = document.getElementById('canvas')
-const tearMole = new TearMole(canvas)
+const tearMole = new TearMole()
 
 const dropArea = document.getElementById('dropArea')
 const fileInput = document.getElementById('fileInput')
@@ -11,8 +11,8 @@ dragAndDropSelect(dropArea, fileInput)
 
 fileInput.addEventListener('change', e => {
   e.preventDefault()
-  fileToImage(e.target.files[0]).then(src => {
-    tearMole.setImageSrc(src)
+  fileToImage(e.target.files[0], canvas).then(canvas => {
+    tearMole.init(canvas)
     fileInput.value = null
   }).catch(console.error)
 })

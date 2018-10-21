@@ -1,31 +1,21 @@
 import clm from 'clmtrackr'
 import { TRACK_POINTS, MOLE } from './settings'
 export default class {
-  constructor (canvas) {
-    this.canvas = canvas
-    this.context = canvas.getContext('2d')
+  constructor () {
     this.setKey('LEFT')
-    this.image = new Image()
-    this.image.onload = () => {
-      this.drawImage()
-      this.resetTracker()
-      if (this.onStart) this.onStart()
-      this.track(MOLE.TRACK_COUNT)
-    }
   }
   setKey (key) {
     this.key = key
   }
-  setImageSrc (src) {
-    this.image.src = src
+  init (canvas) {
+    this.canvas = canvas
+    this.context = canvas.getContext('2d')
+    this.origin = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height)
+    this.initTracker()
+    if (this.onStart) this.onStart()
+    this.track(MOLE.TRACK_COUNT)
   }
-  drawImage () {
-    this.canvas.setAttribute('width', this.image.width)
-    this.canvas.setAttribute('height', this.image.height)
-    this.context.drawImage(this.image, 0, 0, this.image.width, this.image.height)
-    this.origin = this.context.getImageData(0, 0, this.image.width, this.image.height)
-  }
-  resetTracker () {
+  initTracker () {
     if (this.tracker) this.tracker.stop()
     this.tracker = new clm.tracker()
     this.tracker.init()
@@ -42,6 +32,7 @@ export default class {
     }
   }
   drawMole () {
+    if (!this.tracker) return false
     const position = this.tracker.getCurrentPosition()
     if (!position) return false
     const faceSize = Math.abs(position[TRACK_POINTS.LEFT.CORNER][0] - position[TRACK_POINTS.RIGHT.CORNER][0])

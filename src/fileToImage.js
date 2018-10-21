@@ -32,29 +32,28 @@ const transformCanvasAndContext = (canvas, context, image) => {
     case 8: return context.transform(0, -1, 1, 0, 0, image.width)
   }
 }
-const optmizeSrc = src => {
+const drawToCanvas = (src, canvas) => {
   return new Promise(resolve => {
     const image = new Image()
     image.src = src
     image.onload = () => {
       resizeImage(image)
-      const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
       canvas.width = image.width
       canvas.height = image.height
       transformCanvasAndContext(canvas, context, image)
       context.drawImage(image, 0, 0, image.width, image.height)
-      resolve(canvas.toDataURL('image/png'))
+      resolve(canvas)
     }
   })
 }
 
-export default file => {
+export default (file, canvas) => {
   return new Promise((resolve, reject) => {
     if (!file.type.includes('image/')) return reject(new Error('ファイルの形式が不正です'))
     if (!window.FileReader) return reject(new Error('画像の読み込みに対応していません'))
     const reader = new FileReader()
-    reader.onload = e => resolve(optmizeSrc(e.target.result))
+    reader.onload = e => resolve(drawToCanvas(e.target.result, canvas))
     reader.onerror = () => reject(new Error('File reading failed'))
     reader.readAsDataURL(file)
   })
