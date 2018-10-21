@@ -43,6 +43,7 @@ const drawToCanvas = (src, canvas) => {
       canvas.height = image.height
       transformCanvasAndContext(canvas, context, image)
       context.drawImage(image, 0, 0, image.width, image.height)
+      context.setTransform(1, 0, 0, 1, 0, 0)
       resolve(canvas)
     }
   })
