@@ -1,6 +1,6 @@
 import TearMole from './TearMole'
 import dragAndDropSelect from './dragAndDropSelect'
-import fileToImage from './fileToImage'
+import drawImageFileToCanvas from './drawImageFileToCanvas'
 
 const canvas = document.getElementById('canvas')
 const tearMole = new TearMole()
@@ -11,7 +11,7 @@ dragAndDropSelect(dropArea, fileInput)
 
 fileInput.addEventListener('change', e => {
   e.preventDefault()
-  fileToImage(e.target.files[0], canvas).then(canvas => {
+  drawImageFileToCanvas(e.target.files[0], canvas).then(canvas => {
     tearMole.init(canvas)
     fileInput.value = null
   }).catch(console.error)
